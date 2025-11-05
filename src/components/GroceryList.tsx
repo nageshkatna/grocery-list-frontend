@@ -1,0 +1,73 @@
+import { useContext } from "react";
+import { GroceryListContext } from "../context/AllContexts";
+import GroceryItemRow from "./GroceryItemRow";
+import AddGroceryForm from "./AddGroceryForm";
+import "../styles/GroceryList.css";
+
+const GroceryList = () => {
+  const { items, setPage } = useContext(GroceryListContext);
+
+  const currentPage = items?.current_page || 1;
+  const total = items?.count || 0;
+  const totalPages = items?.total_pages || 1;
+
+  const handlePageChange = (page: number) => {
+    setPage(page);
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setPage(currentPage - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setPage(currentPage + 1);
+    }
+  };
+
+  return (
+    <div className='grocery-list-container'>
+      <h1>Grocery List</h1>
+
+      <AddGroceryForm />
+
+      <div className='grocery-items'>
+        {items.results.length === 0 ? (
+          <p className='empty-message'>Your grocery list is empty. Add some items to get started!</p>
+        ) : (
+          items.results.map((item) => <GroceryItemRow key={item.id} item={item} />)
+        )}
+      </div>
+
+      <div className='pagination'>
+        <button onClick={handlePrevPage} disabled={currentPage === 1} className='btn btn-pagination'>
+          Previous
+        </button>
+
+        <div className='pagination-pages'>
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+            <button
+              key={page}
+              onClick={() => handlePageChange(page)}
+              className={`btn btn-page ${currentPage === page ? "active" : ""}`}
+            >
+              {page}
+            </button>
+          ))}
+        </div>
+
+        <button onClick={handleNextPage} disabled={currentPage === totalPages} className='btn btn-pagination'>
+          Next
+        </button>
+
+        <div className='pagination-info'>
+          Page {currentPage} of {totalPages} ({total} total items)
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default GroceryList;
