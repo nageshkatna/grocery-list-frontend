@@ -1,0 +1,17 @@
+version: "3"
+services:
+  grocery-list-frontend:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      args:
+        VITE_APP_API_BASE_URL: "http://127.0.0.1:8080/api/v1/groceryItems"
+    container_name: grocery_list_frontend
+    ports:
+      - "5173:80"
+    networks:
+      - webapi_network
+
+networks:
+  webapi_network:
+    driver: bridge
