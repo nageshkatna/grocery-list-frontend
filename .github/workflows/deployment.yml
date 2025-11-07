@@ -20,6 +20,6 @@ jobs:
           script: |
             cd ~/grocery-list-frontend
             git pull origin main
-            cd docker
+            cd docker/
             docker-compose build
             docker-compose up -d
