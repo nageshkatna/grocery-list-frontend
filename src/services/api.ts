@@ -2,7 +2,7 @@ import type { GroceryItemT, GroceryItemPaginatedT } from "../types/GroceryListTy
 
 export const groceryApi = {
   getItems: async (page: number): Promise<GroceryItemPaginatedT> => {
-    const response = await fetch(`${import.meta.env.VITE_APP_API_BASE_URL}/?page=${page}`);
+    const response = await fetch(`${import.meta.env.VITE_APP_API_BASE_URL}/api/v1/groceryItems/?page=${page}`);
     if (!response.ok) throw new Error("Failed to fetch items");
     return response.json();
   },
@@ -10,7 +10,7 @@ export const groceryApi = {
   addItem: async (
     item: Omit<GroceryItemT, "id" | "created_at" | "updated_at" | "purchased">
   ): Promise<GroceryItemT> => {
-    const response = await fetch(`${import.meta.env.VITE_APP_API_BASE_URL}/`, {
+    const response = await fetch(`${import.meta.env.VITE_APP_API_BASE_URL}/api/v1/groceryItems/`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(item),
@@ -24,7 +24,7 @@ export const groceryApi = {
   },
 
   updateItem: async (id: string, updates: Partial<GroceryItemT>): Promise<GroceryItemT> => {
-    const response = await fetch(`${import.meta.env.VITE_APP_API_BASE_URL}/${id}/`, {
+    const response = await fetch(`${import.meta.env.VITE_APP_API_BASE_URL}/api/v1/groceryItems/${id}/`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updates),
@@ -34,7 +34,7 @@ export const groceryApi = {
   },
 
   flagPurchased: async (id: string, updates: Partial<GroceryItemT>): Promise<GroceryItemT> => {
-    const response = await fetch(`${import.meta.env.VITE_APP_API_BASE_URL}/${id}/`, {
+    const response = await fetch(`${import.meta.env.VITE_APP_API_BASE_URL}/api/v1/groceryItems/${id}/`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updates),
@@ -44,7 +44,7 @@ export const groceryApi = {
   },
 
   deleteItem: async (id: string): Promise<void> => {
-    const response = await fetch(`${import.meta.env.VITE_APP_API_BASE_URL}/${id}/`, {
+    const response = await fetch(`${import.meta.env.VITE_APP_API_BASE_URL}/api/v1/groceryItems/${id}/`, {
       method: "DELETE",
     });
     if (!response.ok) throw new Error("Failed to delete item");
