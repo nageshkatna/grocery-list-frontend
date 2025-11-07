@@ -16,6 +16,7 @@ const defaultItem: GroceryItemT = {
 const renderWithContext = (item: GroceryItemT = defaultItem, contextOverrides?: Partial<GroceryListContextT>) => {
   const defaults: GroceryListContextT = {
     items: { count: 0, current_page: 1, total_pages: 1, next: "", previous: "", results: [] },
+    error: null,
     setPage: vi.fn() as unknown as React.Dispatch<React.SetStateAction<number>>,
     handleAdd: vi.fn(),
     handleDelete: vi.fn(),
