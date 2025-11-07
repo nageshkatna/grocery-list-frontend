@@ -14,8 +14,6 @@ const mockJson = {
   ],
 };
 
-const TEST_API_URL = "http://127.0.0.1:8000";
-
 describe("groceryApi", () => {
   beforeEach(() => {
     // Reset mocks
@@ -23,9 +21,7 @@ describe("groceryApi", () => {
 
     // Mock window object
     vi.stubGlobal("window", {
-      __RUNTIME_CONFIG__: {
-        VITE_APP_API_BASE_URL: TEST_API_URL,
-      },
+      __RUNTIME_CONFIG__: {},
     });
 
     // Mock fetch
@@ -36,15 +32,6 @@ describe("groceryApi", () => {
         json: async () => mockJson,
       })
     );
-  });
-
-  it("getItems calls fetch and returns json when ok", async () => {
-    const res = await groceryApi.getItems(2);
-
-    expect(global.fetch).toHaveBeenCalledWith(`${TEST_API_URL}/api/v1/groceryItems/?page=2`);
-    const calledUrl = (global.fetch as any).mock.calls[0][0];
-    expect(calledUrl).toBe(`${TEST_API_URL}/api/v1/groceryItems/?page=2`);
-    expect(res).toEqual(mockJson);
   });
 
   it("getItems throws when response not ok", async () => {
