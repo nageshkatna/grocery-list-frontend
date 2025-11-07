@@ -23,6 +23,5 @@ jobs:
             touch .env
             echo "VITE_APP_API_BASE_URL=${{ secrets.VITE_APP_API_BASE_URL }}" >> .env
             cd docker/
-            sudo docker-compose down
-            sudo VITE_APP_API_BASE_URL=${{ secrets.VITE_APP_API_BASE_URL }} docker-compose up -d --build
-            sudo docker-compose up -d
+            sudo docker-compose --env-file ../.env down
+            sudo docker-compose --env-file ../.env up -d --build
