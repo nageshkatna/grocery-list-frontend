@@ -12,7 +12,7 @@ Users can create, edit, delete, and mark grocery items as purchased.
 - Responsive UI (desktop + mobile)
 - Error handling for duplicate items
 - State management with React Query
-- ESLint + Prettier + TypeScript strict mode
+- ESLint + TypeScript strict mode
 
 ---
 
