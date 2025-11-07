@@ -6,8 +6,8 @@ services:
       dockerfile: docker/Dockerfile
       args:
         VITE_APP_API_BASE_URL: ${VITE_APP_API_BASE_URL}
-    env_file:
-      - ../.env
+    environment:
+      - API_BASE_URL=${VITE_APP_API_BASE_URL}
     container_name: grocery_list_frontend
     ports:
       - "5173:80"
