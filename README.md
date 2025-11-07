@@ -51,7 +51,7 @@ VITE_API_URL=http://localhost:8000
 
 ```bash
 cd docker
-docker-compose up -d
+sudo VITE_APP_API_BASE_URL=<YOUR_BACKEND_API_HOST> docker-compose up -d --build
 ```
 
 ### Testing
