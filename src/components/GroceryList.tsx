@@ -5,7 +5,7 @@ import AddGroceryForm from "./AddGroceryForm";
 import "../styles/GroceryList.css";
 
 const GroceryList = () => {
-  const { items, setPage } = useContext(GroceryListContext);
+  const { items, error, setPage } = useContext(GroceryListContext);
 
   const currentPage = items?.current_page || 1;
   const total = items?.count || 0;
@@ -30,7 +30,11 @@ const GroceryList = () => {
   return (
     <div className='grocery-list-container'>
       <h1>Grocery List</h1>
-
+      {error && (
+        <div className='error-message' data-testid='error-message'>
+          {error}
+        </div>
+      )}
       <AddGroceryForm />
 
       <div className='grocery-items'>

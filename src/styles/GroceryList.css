@@ -352,6 +352,15 @@
   white-space: nowrap;
 }
 
+.error-message {
+  background: #e74c3c;
+  color: white;
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
 @media (max-width: 768px) {
   .grocery-list-container {
     padding: 1rem;

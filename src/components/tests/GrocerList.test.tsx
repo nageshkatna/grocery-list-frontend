@@ -13,6 +13,7 @@ const dummyItems: GroceryItemPaginatedT = {
 };
 const dummyContextValues: GroceryListContextT = {
   items: dummyItems,
+  error: null,
   setPage: vi.fn(),
   handleAdd: vi.fn(),
   handleDelete: vi.fn(),
@@ -45,10 +46,17 @@ test("disables Previous button on first page", () => {
   expect(screen.getByTestId("previous-btn")).toBeDisabled();
 });
 
+test("disables Previous button on first page", () => {
+  const items = { results: [], current_page: 1, count: 0, total_pages: 3, next: "", previous: "" };
+  renderWithContext(items);
+  expect(screen.getByTestId("previous-btn")).toBeDisabled();
+});
+
 test("disables Next button on last page", () => {
   const items = { results: [], current_page: 3, count: 0, total_pages: 3, next: "", previous: "" };
-  renderWithContext(items);
-  expect(screen.getByTestId("next-btn")).toBeDisabled();
+  const error = "Some error";
+  renderWithContext(items, { error });
+  expect(screen.getByTestId("error-message")).toBeInTheDocument();
 });
 
 test("calls setPage when clicking page number", () => {

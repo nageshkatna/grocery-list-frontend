@@ -15,7 +15,11 @@ export const groceryApi = {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(item),
     });
-    if (!response.ok) throw new Error("Failed to add item");
+    if (!response.ok) {
+      const errorBody = await response.json().catch(() => null);
+      throw new Error(errorBody.error);
+    }
+
     return response.json();
   },
 

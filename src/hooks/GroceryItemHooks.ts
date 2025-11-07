@@ -18,6 +18,9 @@ export const useAddGroceryItem = () => {
     onSuccess: () => {
       queryClient.invalidateQueries(GROCERY_QUERY_KEY as InvalidateQueryFilters<readonly unknown[]>);
     },
+    onError: (error: unknown) => {
+      console.error("Add item failed:", error);
+    },
   });
 };
 

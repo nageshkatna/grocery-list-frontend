@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { ContextType, GroceryItemPaginatedT, GroceryItemT } from "../types/GroceryListTypes";
+import type { ContextType, ErrorT, GroceryItemPaginatedT, GroceryItemT } from "../types/GroceryListTypes";
 import {
   useGroceryItems,
   useAddGroceryItem,
@@ -11,6 +11,7 @@ import { GroceryListContext } from "./AllContexts";
 
 export const GroceryListContextProvider = ({ children }: ContextType) => {
   const [page, setPage] = useState(1);
+  const [error, setError] = useState<string | null>(null);
 
   const { data, isLoading } = useGroceryItems(page);
 
@@ -22,7 +23,12 @@ export const GroceryListContextProvider = ({ children }: ContextType) => {
   const purchasedMutation = useFlagPurchasedItem();
 
   const handleAdd = (newItem: Omit<GroceryItemT, "id" | "purchased">) => {
-    addMutation.mutate(newItem);
+    addMutation.mutate(newItem, {
+      onError: (err) => {
+        const errs = err as ErrorT;
+        setError(errs.message);
+      },
+    });
   };
 
   const handleUpdate = (id: string, updates: Partial<GroceryItemT>) => {
@@ -46,6 +52,7 @@ export const GroceryListContextProvider = ({ children }: ContextType) => {
         <GroceryListContext.Provider
           value={{
             items,
+            error,
             setPage,
             handleAdd,
             handleDelete,
