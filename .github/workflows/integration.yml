@@ -19,6 +19,3 @@ jobs:
 
       - name: Run Tests
         run: npm run test
-
-      - name: Docker compose down
-        run: cd docker && docker compose down -v
