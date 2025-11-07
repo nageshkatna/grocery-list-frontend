@@ -42,7 +42,7 @@ npm run dev
 - Create a `.env` file and add
 
 ```bash
-VITE_API_URL=http://localhost:8000
+VITE_APP_API_BASE_URL=<YOUR_BACKEND_API_HOST>
 ```
 
 ### Docker

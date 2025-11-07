@@ -1,8 +1,23 @@
 import type { GroceryItemT, GroceryItemPaginatedT } from "../types/GroceryListTypes";
 
+declare global {
+  interface Window {
+    __RUNTIME_CONFIG__: {
+      VITE_APP_API_BASE_URL: string;
+    };
+  }
+}
+
+// Try to get the URL from runtime config first, then fall back to build time env
+const API_BASE_URL = window.__RUNTIME_CONFIG__?.VITE_APP_API_BASE_URL || import.meta.env.VITE_APP_API_BASE_URL;
+
+// Debug logging
+console.log('Runtime config:', window.__RUNTIME_CONFIG__);
+console.log('Build time env:', import.meta.env.VITE_APP_API_BASE_URL);
+console.log('Selected API Base URL:', API_BASE_URL);
 export const groceryApi = {
   getItems: async (page: number): Promise<GroceryItemPaginatedT> => {
-    const response = await fetch(`${import.meta.env.VITE_APP_API_BASE_URL}/api/v1/groceryItems/?page=${page}`);
+    const response = await fetch(`${API_BASE_URL}/api/v1/groceryItems/?page=${page}`);
     if (!response.ok) throw new Error("Failed to fetch items");
     return response.json();
   },
@@ -10,7 +25,7 @@ export const groceryApi = {
   addItem: async (
     item: Omit<GroceryItemT, "id" | "created_at" | "updated_at" | "purchased">
   ): Promise<GroceryItemT> => {
-    const response = await fetch(`${import.meta.env.VITE_APP_API_BASE_URL}/api/v1/groceryItems/`, {
+    const response = await fetch(`${API_BASE_URL}/api/v1/groceryItems/`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(item),
@@ -24,7 +39,7 @@ export const groceryApi = {
   },
 
   updateItem: async (id: string, updates: Partial<GroceryItemT>): Promise<GroceryItemT> => {
-    const response = await fetch(`${import.meta.env.VITE_APP_API_BASE_URL}/api/v1/groceryItems/${id}/`, {
+    const response = await fetch(`${API_BASE_URL}/api/v1/groceryItems/${id}/`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updates),
@@ -34,7 +49,7 @@ export const groceryApi = {
   },
 
   flagPurchased: async (id: string, updates: Partial<GroceryItemT>): Promise<GroceryItemT> => {
-    const response = await fetch(`${import.meta.env.VITE_APP_API_BASE_URL}/api/v1/groceryItems/${id}/`, {
+    const response = await fetch(`${API_BASE_URL}/api/v1/groceryItems/${id}/`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updates),
@@ -44,7 +59,7 @@ export const groceryApi = {
   },
 
   deleteItem: async (id: string): Promise<void> => {
-    const response = await fetch(`${import.meta.env.VITE_APP_API_BASE_URL}/api/v1/groceryItems/${id}/`, {
+    const response = await fetch(`${API_BASE_URL}/api/v1/groceryItems/${id}/`, {
       method: "DELETE",
     });
     if (!response.ok) throw new Error("Failed to delete item");
