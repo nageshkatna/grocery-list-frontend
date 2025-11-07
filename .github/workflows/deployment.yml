@@ -23,4 +23,4 @@ jobs:
             echo "VITE_APP_API_BASE_URL=${{ secrets.VITE_APP_API_BASE_URL }}" > .env
             cd docker
             sudo docker-compose down
-            sudo export VITE_APP_API_BASE_URL=http://localhost:8000 && docker-compose down && docker-compose up -d --build
+            export VITE_APP_API_BASE_URL=${{ secrets.VITE_APP_API_BASE_URL }} && sudo docker-compose down && docker-compose up -d --build
