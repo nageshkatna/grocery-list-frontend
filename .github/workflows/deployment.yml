@@ -20,6 +20,9 @@ jobs:
           script: |
             cd ~/grocery-list-frontend
             git pull origin main
+            touch .env
+            echo "VITE_APP_API_BASE_URL=${{ secrets.VITE_APP_API_BASE_URL }}" > .env
             cd docker/
+            sudo docker-compose down
             sudo docker-compose build
             sudo docker-compose up -d
