@@ -358,6 +358,28 @@
   padding: 1rem;
   border-radius: 6px;
   margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.error-close {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+}
+
+.error-close:hover {
+  color: #fdd;
+}
+
+.error-text {
+  flex: 1;
   text-align: center;
 }
 

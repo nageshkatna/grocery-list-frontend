@@ -3,13 +3,6 @@ import { vi, describe, it, expect } from "vitest";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 
-// Mock groceryApi
-// const addItem = vi.fn();
-// const updateItem = vi.fn();
-// const deleteItem = vi.fn();
-// const flagPurchased = vi.fn();
-// const getItems = vi.fn();
-
 vi.mock("../../services/api", () => ({
   groceryApi: {
     addItem: vi.fn(),

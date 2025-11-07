@@ -14,6 +14,7 @@ const dummyItems: GroceryItemPaginatedT = {
 const dummyContextValues: GroceryListContextT = {
   items: dummyItems,
   error: null,
+  setError: vi.fn() as unknown as React.Dispatch<React.SetStateAction<string | null>>,
   setPage: vi.fn(),
   handleAdd: vi.fn(),
   handleDelete: vi.fn(),

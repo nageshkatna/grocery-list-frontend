@@ -18,6 +18,7 @@ const renderWithContext = (item: GroceryItemT = defaultItem, contextOverrides?: 
     items: { count: 0, current_page: 1, total_pages: 1, next: "", previous: "", results: [] },
     error: null,
     setPage: vi.fn() as unknown as React.Dispatch<React.SetStateAction<number>>,
+    setError: vi.fn() as unknown as React.Dispatch<React.SetStateAction<string | null>>,
     handleAdd: vi.fn(),
     handleDelete: vi.fn(),
     handleUpdate: vi.fn(),

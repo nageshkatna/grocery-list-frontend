@@ -53,6 +53,7 @@ export const GroceryListContextProvider = ({ children }: ContextType) => {
           value={{
             items,
             error,
+            setError,
             setPage,
             handleAdd,
             handleDelete,

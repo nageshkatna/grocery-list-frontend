@@ -5,7 +5,7 @@ import AddGroceryForm from "./AddGroceryForm";
 import "../styles/GroceryList.css";
 
 const GroceryList = () => {
-  const { items, error, setPage } = useContext(GroceryListContext);
+  const { items, error, setError, setPage } = useContext(GroceryListContext);
 
   const currentPage = items?.current_page || 1;
   const total = items?.count || 0;
@@ -32,7 +32,10 @@ const GroceryList = () => {
       <h1>Grocery List</h1>
       {error && (
         <div className='error-message' data-testid='error-message'>
-          {error}
+          <span className='error-text'>{error}</span>
+          <button className='error-close' onClick={() => setError(null)} aria-label='Dismiss error'>
+            &times;
+          </button>
         </div>
       )}
       <AddGroceryForm />

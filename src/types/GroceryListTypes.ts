@@ -19,6 +19,7 @@ export type GroceryItemT = {
 export type GroceryListContextT = {
   items: GroceryItemPaginatedT;
   error: string | null;
+  setError: React.Dispatch<React.SetStateAction<string | null>>;
   setPage: React.Dispatch<React.SetStateAction<number>>;
   handleAdd: (newItem: Omit<GroceryItemT, "id" | "purchased">) => void;
   handleDelete: (id: string) => void;
