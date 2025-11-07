@@ -21,7 +21,7 @@ Users can create, edit, delete, and mark grocery items as purchased.
 - [React](https://react.dev/) + [Vite](https://vitejs.dev/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [React Query](https://tanstack.com/query/latest)
-- [ESLint](https://eslint.org/) + [Prettier](https://prettier.io/)
+- [ESLint](https://eslint.org/)
 - [Vitest](https://vitest.dev/) for testing
 
 ---
