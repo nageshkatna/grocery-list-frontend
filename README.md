@@ -54,10 +54,14 @@ cd docker
 docker-compose up -d
 ```
 
-# Testing
+### Testing
 
 - Run tests using
 
 ```bash
 npm run test
 ```
+
+## Frontend Image
+
+<p align="center"><img src='/src/assets/grocery-frontend.png' alt='Grocery List Frontend Image' /></p>
