@@ -3,6 +3,9 @@
 A React + Vite + TypeScript application for managing a family grocery list.  
 Users can create, edit, delete, and mark grocery items as purchased.
 
+### Live example
+http://ec2-35-183-45-21.ca-central-1.compute.amazonaws.com:5173/
+
 ---
 
 ## Features
