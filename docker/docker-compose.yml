@@ -10,7 +10,7 @@ services:
       - ../.env
     container_name: grocery_list_frontend
     ports:
-      - "80:80"
+      - "5173:80"
     networks:
       - webapi_network
 
