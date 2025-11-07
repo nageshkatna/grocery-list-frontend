@@ -1,0 +1,25 @@
+name: Deploy Frontend
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  deploy-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Deploy to Frontend EC2
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.FRONTEND_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            cd ~/grocery-list-frontend
+            git pull origin main
+            cd docker
+            docker-compose build
+            docker-compose up -d
