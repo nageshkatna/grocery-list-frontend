@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import { groceryApi } from "../api";
 
@@ -31,7 +32,7 @@ describe("groceryApi", () => {
 
     expect(global.fetch).toHaveBeenCalledWith("url/?page=2");
     // second arg is not supplied for GET; ensure we called URL with page query
-    const calledUrl = global.fetch.mock.calls[0][0];
+    const calledUrl = (global.fetch as any).mock.calls[0][0];
     expect(calledUrl).toMatch("url/?page=2");
     expect(res).toEqual(mockJson);
   });
@@ -49,7 +50,7 @@ describe("groceryApi", () => {
     const res = await groceryApi.addItem(payload);
 
     expect(global.fetch).toHaveBeenCalled();
-    const opts = global.fetch.mock.calls[0][1];
+    const opts = (global.fetch as any).mock.calls[0][1];
     expect(opts.method).toBe("POST");
     expect(opts.headers["Content-Type"]).toBe("application/json");
     expect(JSON.parse(opts.body)).toEqual(payload);
@@ -64,7 +65,7 @@ describe("groceryApi", () => {
     const res = await groceryApi.updateItem("1", updates);
 
     expect(global.fetch).toHaveBeenCalled();
-    const opts = global.fetch.mock.calls[0][1];
+    const opts = (global.fetch as any).mock.calls[0][1];
     expect(opts.method).toBe("PUT");
     expect(JSON.parse(opts.body)).toEqual(updates);
     expect(res).toEqual(returned);
@@ -78,7 +79,7 @@ describe("groceryApi", () => {
     const res = await groceryApi.flagPurchased("1", updates);
 
     expect(global.fetch).toHaveBeenCalled();
-    const opts = global.fetch.mock.calls[0][1];
+    const opts = (global.fetch as any).mock.calls[0][1];
     expect(opts.method).toBe("PATCH");
     expect(JSON.parse(opts.body)).toEqual(updates);
     expect(res).toEqual(returned);
