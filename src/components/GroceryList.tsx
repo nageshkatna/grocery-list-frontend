@@ -35,14 +35,21 @@ const GroceryList = () => {
 
       <div className='grocery-items'>
         {items.results.length === 0 ? (
-          <p className='empty-message'>Your grocery list is empty. Add some items to get started!</p>
+          <p data-testid='empty-massage' className='empty-message'>
+            Your grocery list is empty. Add some items to get started!
+          </p>
         ) : (
           items.results.map((item) => <GroceryItemRow key={item.id} item={item} />)
         )}
       </div>
 
       <div className='pagination'>
-        <button onClick={handlePrevPage} disabled={currentPage === 1} className='btn btn-pagination'>
+        <button
+          data-testid='previous-btn'
+          onClick={handlePrevPage}
+          disabled={currentPage === 1}
+          className='btn btn-pagination'
+        >
           Previous
         </button>
 
@@ -50,6 +57,7 @@ const GroceryList = () => {
           {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
             <button
               key={page}
+              data-testid={`number-btn-${page}`}
               onClick={() => handlePageChange(page)}
               className={`btn btn-page ${currentPage === page ? "active" : ""}`}
             >
@@ -58,11 +66,16 @@ const GroceryList = () => {
           ))}
         </div>
 
-        <button onClick={handleNextPage} disabled={currentPage === totalPages} className='btn btn-pagination'>
+        <button
+          data-testid='next-btn'
+          onClick={handleNextPage}
+          disabled={currentPage === totalPages}
+          className='btn btn-pagination'
+        >
           Next
         </button>
 
-        <div className='pagination-info'>
+        <div data-testid='page-info' className='pagination-info'>
           Page {currentPage} of {totalPages} ({total} total items)
         </div>
       </div>
