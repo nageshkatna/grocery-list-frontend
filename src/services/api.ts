@@ -8,13 +8,19 @@ declare global {
   }
 }
 
-// Try to get the URL from runtime config first, then fall back to build time env
-let API_BASE_URL = window.__RUNTIME_CONFIG__?.VITE_APP_API_BASE_URL || import.meta.env.VITE_APP_API_BASE_URL;
+// Default API URL for testing environment
+const DEFAULT_API_URL = "http://localhost:8000";
+
+// Try to get the URL from runtime config first, then fall back to build time env, then default
+let API_BASE_URL =
+  window.__RUNTIME_CONFIG__?.VITE_APP_API_BASE_URL || import.meta.env.VITE_APP_API_BASE_URL || DEFAULT_API_URL;
 
 // Ensure the URL doesn't end with a slash and doesn't include the API path
-API_BASE_URL = API_BASE_URL.replace(/\/+$/, "");
-if (API_BASE_URL.includes("/api/v1")) {
-  API_BASE_URL = API_BASE_URL.split("/api/v1")[0];
+if (typeof API_BASE_URL === "string") {
+  API_BASE_URL = API_BASE_URL.replace(/\/+$/, "");
+  if (API_BASE_URL.includes("/api/v1")) {
+    API_BASE_URL = API_BASE_URL.split("/api/v1")[0];
+  }
 }
 
 // Debug logging
